@@ -42,9 +42,9 @@ public class CardController {
         }
 
     }
-    @GetMapping("/studentStatusNotActive")
+  /*  @GetMapping("/studentStatusNotActive")
     public ResponseEntity statusNotActive(@RequestParam("status") CardStatus status){
         List<Student> responseDtoList = cardService.getBookListByStatus(status);
         return new ResponseEntity(responseDtoList,HttpStatus.OK);
-    }
+    }*/
 }

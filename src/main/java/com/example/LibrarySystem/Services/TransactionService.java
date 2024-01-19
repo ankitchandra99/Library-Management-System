@@ -46,7 +46,7 @@ public class TransactionService {
 
         //Book Related Exception Handling
 
-        Transaction transaction = new Transaction(TransactionStatus.PENDING, TransactionType.ISSUE,0);
+        Transaction transaction = new Transaction(TransactionStatus.PENDING, TransactionType.ISSUE);
 
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if(!optionalBook.isPresent()){
@@ -116,29 +116,10 @@ public class TransactionService {
         Book book = bookRepository.findById(bookId).get();
         LibraryCard card = cardRepository.findById(cardId).get();
 
-
-        List<Transaction> transactionList = transactionRepository.findTransactionsByBookAndLibraryCardAndTransactionStatusAndTransactionType(book,card,TransactionStatus.SUCCESS,TransactionType.ISSUE);
-
-        //last transaction
-        Transaction latestTransaction = transactionList.get(transactionList.size()-1);
-
-        Date issueDate = latestTransaction.getCreatedAt();
-
-        Integer year=issueDate.getYear()+1900;
-
-        long milliSecondTime = Math.abs(System.currentTimeMillis() - issueDate.getTime());
-        long no_of_days_issued = TimeUnit.DAYS.convert(milliSecondTime,TimeUnit.MILLISECONDS);
-
-
-        int fineAmount = 0;
-        if(no_of_days_issued>15){
-            fineAmount = (int) ((no_of_days_issued - 15)*5);
-        }
-
         book.setIsAvailable(Boolean.TRUE);
         card.setNoOfBooksIssued(card.getNoOfBooksIssued()-1);
 
-        Transaction transaction = new Transaction(TransactionStatus.SUCCESS,TransactionType.RETURN,fineAmount);
+        Transaction transaction = new Transaction(TransactionStatus.SUCCESS,TransactionType.RETURN);
 
         transaction.setBook(book);
         transaction.setLibraryCard(card);
@@ -155,25 +136,4 @@ public class TransactionService {
 
         return "Book has successfully been returned";
     }
-
-
-    public  double calculateTotalFinesCollectedIn2023() {
-
-        List<Transaction> transactions = transactionRepository.findAll(); // You need to create a method to fetch all transactions
-
-        double totalFines = 0;
-
-        for (Transaction transaction : transactions) {
-            Date transactionDate = transaction.getCreatedAt();
-            Calendar calendar = Calendar.getInstance();
-            int transactionYear = calendar.get(Calendar.YEAR);
-            if (transactionYear == 2023) {
-                totalFines += transaction.getFineAmount();
-            }
-        }
-
-        return totalFines;
-    }
-
-
 }

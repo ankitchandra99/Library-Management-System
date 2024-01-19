@@ -46,7 +46,6 @@ public class Book {
 
     @ManyToOne
     @JoinColumn
-    @JsonIgnore
     private Author author;
     //Unidirectional mapping
 

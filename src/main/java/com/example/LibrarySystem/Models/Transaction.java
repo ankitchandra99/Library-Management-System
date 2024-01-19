@@ -48,10 +48,9 @@ public class Transaction {
 
     private Integer fineAmount;
 
-    public Transaction(TransactionStatus transactionStatus, TransactionType transactionType, Integer fineAmount) {
+    public Transaction(TransactionStatus transactionStatus, TransactionType transactionType) {
         this.transactionStatus = transactionStatus;
         this.transactionType = transactionType;
-        this.fineAmount = fineAmount;
     }
 
     @ManyToOne

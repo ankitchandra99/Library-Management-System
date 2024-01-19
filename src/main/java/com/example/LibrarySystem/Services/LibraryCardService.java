@@ -7,6 +7,7 @@ import com.example.LibrarySystem.Models.Student;
 import com.example.LibrarySystem.Repositories.CardRepository;
 import com.example.LibrarySystem.Repositories.StudentRepository;
 import com.example.LibrarySystem.ResponseDto.BookResponseDto;
+import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,10 +73,10 @@ public class LibraryCardService {
 
     }
 
-    public List<Student> getBookListByStatus(CardStatus status) {
-        List<LibraryCard> libraryCardList = cardRepository.findBookByStatus(Active);
+    /*public List<Student> getBookListByStatus(CardStatus status) {
+        List<LibraryCard> libraryCardList = cardRepository.findBookByStatus();
 
 
 
-    }
+    }*/
 }

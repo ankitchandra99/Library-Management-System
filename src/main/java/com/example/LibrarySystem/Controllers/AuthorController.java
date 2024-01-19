@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/author")
 @Slf4j
 public class AuthorController {
+
+    @Autowired
     private AuthorService authorService;
 
-    public AuthorController(AuthorService authorService) {
-        this.authorService = authorService;
-    }
 
     @PostMapping("/add")
     public ResponseEntity addAuthor(@RequestBody Author author){
